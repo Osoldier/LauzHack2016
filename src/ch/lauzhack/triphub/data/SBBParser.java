@@ -28,29 +28,40 @@ public class SBBParser implements Parser {
 	public ArrayList<Path> getConnections (Station startingStation, Station endStation, Calendar date) {
 		String startId = startingStation.getId();
 		String endId = endStation.getId();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-		SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+		ArrayList<Path> paths = new ArrayList<>();
 		try {
 			URL url = new URL(baseURL+"connections?from="+startId+"&to="+endId+"&date="+dateFormat.format(date.getTime())+"&time="+timeFormat.format(date.getTime()));
+			System.out.println(url);
 			JSONObject json = getJSONFromURL(url);
 			JSONArray connections = json.getJSONArray("connections");
+			System.out.println("============================");
+			System.out.println(connections);
+			System.out.println("============================");
 			for (int i = 0; i < connections.length(); i++) {
 				ArrayList<Stop> stops = new ArrayList<>();
 				JSONArray sections = connections.getJSONObject(i).getJSONArray("sections");
 				for (int j = 0; j < sections.length(); j++) {
-					JSONArray pathList = sections.getJSONObject(i).getJSONObject("journey").getJSONArray("passlist");
+					JSONArray pathList = sections.getJSONObject(j).getJSONObject("journey").getJSONArray("passList");
+					System.out.println("==========");
+					System.out.println(pathList);
+					System.out.println("==========");
 					for (int k = 0; k < pathList.length(); k++) {
-						JSONObject stationJSON = pathList.getJSONObject(i).getJSONObject("station");
-						Station station = new Station(stationJSON.getString("name"),stationJSON.getJSONObject("coordinates").getDouble("x"),stationJSON.getJSONObject("coordinates").getDouble("y"),stationJSON.getString("id"));
-						String dateAsString = pathList.getJSONObject(i).getString("departure");
-						String[] dateAsStringArray = dateAsString.split("T");
+						//TODO WORK HERE
+						JSONObject stationJSON = pathList.getJSONObject(k).getJSONObject("station");
+						Station station = new Station(stationJSON.getString("name"),stationJSON.getJSONObject("coordinate").getDouble("x"),stationJSON.getJSONObject("coordinate").getDouble("y"),stationJSON.getString("id"));
+						String dateAsString = pathList.getJSONObject(k).getString("departure");
 						Calendar departureDate = Calendar.getInstance();
-						SimpleDateFormat jsonDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ssZ");
-						departureDate.setTime(dateFormat.parse(dateAsStringArray[0]));
-						stops.add(new Stop(station,departureDate));
+						SimpleDateFormat jsonDateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ssZ");
+						departureDate.setTime(jsonDateFormat.parse(dateAsString));
+						//TODO add new Train and parse train
+						stops.add(new Stop(station,departureDate, null));
 					}
 				}
+				paths.add(new Path(stops));
 			}
+			return paths;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

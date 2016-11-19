@@ -62,7 +62,7 @@ public class Path {
 	public String toString () {
 		String string = "";
 		for (Stop stop : path) {
-			string += stop.getStation().getName()+" @ "+stop.getDateTime();
+			string += stop.getStation().getName()+" @ ";
 		}
 		return string;
 	}
