@@ -34,4 +34,8 @@ public class Stop {
 		}
 		return false;
 	}
+
+	public Train getTrain () {
+		return train;
+	}
 }

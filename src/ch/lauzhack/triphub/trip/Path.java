@@ -64,10 +64,11 @@ public class Path {
 	@Override
 	public String toString () {
 		String string = "";
+		string += "[\n";
 		for (Stop stop : path) {
-			if(stop != null)
-				string += " => " + stop.getStation().getName();
+			string += stop.getStation().getName() + " with train: " + stop.getTrain().getServiceName()+"\n";
 		}
+		string += "]";
 		return string;
 	}
 }
