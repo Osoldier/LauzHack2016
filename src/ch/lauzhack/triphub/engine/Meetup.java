@@ -10,6 +10,7 @@ public class Meetup {
 
 	public static Trip getBestTrip(List<User> users) {
 		Trip t = new Trip();
+		/*
 		for (User user : users) {
 			t.getTrip().add(user);
 			for (Stop p : user.getPath().getPath()) {
@@ -23,6 +24,7 @@ public class Meetup {
 				}
 			}
 		}
+		*/
 		return t;
 	}
 	

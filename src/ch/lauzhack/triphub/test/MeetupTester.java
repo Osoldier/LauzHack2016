@@ -30,7 +30,7 @@ public class MeetupTester {
 		cs2.set(Calendar.HOUR, 9);
 		cs2.set(Calendar.MINUTE, 30);
 	}
-	
+	/*
 	private static Stop gs = new Stop(geneva, cs);
 	private static Stop ys = new Stop(geneva, cs1);
 	private static Stop zs = new Stop(zurich, cs2);
@@ -51,5 +51,5 @@ public class MeetupTester {
 		//users.add(new User("Thomas", geneva, zurich, (Path)pg1));
 		Meetup.getBestTrip(users);
 	}
-	
+	*/
 }
