@@ -1,56 +1,21 @@
 package ch.lauzhack.triphub.trip;
 
+import java.util.Calendar;
+
 public class Stop {
-	private String name;
-	private double latitude;
-	private double longitude;
-	
-	public Stop(String name, double latitude, double longitude)
-	{
-		this.name = name;
-		this.latitude = latitude;
-		this.longitude = longitude;
+	private Station station;
+	private Calendar dateTime;
+
+	public Stop (Station station, Calendar dateTime) {
+		this.station = station;
+		this.dateTime = dateTime;
 	}
 
-	public String getName() 
-	{
-		return name;
+	public Station getStation () {
+		return station;
 	}
 
-	public void setName(String name) 
-	{
-		this.name = name;
-	}
-
-	public double getLatitude() 
-	{
-		return latitude;
-	}
-
-	public boolean setLatitude(double latitude) 
-	{
-		if(latitude > 90.0 || latitude < -90.0)
-			return false;
-		
-		this.latitude = latitude;
-		return true;
-	}
-
-	public double getLongitude() 
-	{
-		return longitude;
-	}
-
-	public boolean setLongitude(double longitude) 
-	{
-		if(longitude > 180.0 || longitude < -180.0)
-			return false;
-		this.longitude = longitude;
-		return true;
-	}
-
-	@Override
-	public String toString () {
-		return "Name: "+this.name+"\nx="+this.getLatitude()+"y="+this.getLongitude();
+	public Calendar getDateTime () {
+		return dateTime;
 	}
 }

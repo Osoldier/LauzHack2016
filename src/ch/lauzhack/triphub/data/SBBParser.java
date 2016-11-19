@@ -1,7 +1,7 @@
 package ch.lauzhack.triphub.data;
 
 import ch.lauzhack.triphub.trip.Path;
-import ch.lauzhack.triphub.trip.Stop;
+import ch.lauzhack.triphub.trip.Station;
 import lib.JSONArray;
 import lib.JSONObject;
 
@@ -21,12 +21,13 @@ public class SBBParser implements Parser {
 	}
 
 	@Override
-	public ArrayList<Path> getConnections (Stop startingStop, Stop endPoint, Calendar date) {
+	public ArrayList<Path> getConnections (Station startingStation, Station endStation, Calendar date) {
+		
 		return null;
 	}
 
-	public ArrayList<Stop> getClosestStopFromLocation (double x, double y, int maxDistanceFromStop){
-		ArrayList<Stop> stopsList = new ArrayList<>();
+	public ArrayList<Station> getClosestStopFromLocation (double x, double y, int maxDistanceFromStop){
+		ArrayList<Station> stationList = new ArrayList<>();
 		try {
 			URL url = new URL(baseURL + "locations?x=" + String.valueOf(x) + "&y=" + String.valueOf(y));
 			URLConnection urlConnection = url.openConnection();
@@ -39,16 +40,16 @@ public class SBBParser implements Parser {
 			}
 			String jsonText = jsonBuilder.toString();
 			JSONObject json = new JSONObject(jsonText);
-			JSONArray stops = json.getJSONArray("stations");
-			for (int i = 0; i < stops.length(); i++) {
-				JSONObject stop = stops.getJSONObject(i);
-				if (stop.getDouble("distance") <= maxDistanceFromStop){
-					JSONObject coordinates = stop.getJSONObject("coordinate");
-					stopsList.add(new Stop(stop.getString("name"),coordinates.getDouble("x"),coordinates.getDouble("y")));
+			JSONArray stations = json.getJSONArray("stations");
+			for (int i = 0; i < stations.length(); i++) {
+				JSONObject station = stations.getJSONObject(i);
+				if (station.getDouble("distance") <= maxDistanceFromStop){
+					JSONObject coordinates = station.getJSONObject("coordinate");
+					stationList.add(new Station(station.getString("name"),coordinates.getDouble("x"),coordinates.getDouble("y")));
 				}
 			}
 			reader.close();
-			return stopsList;
+			return stationList;
 		} catch (MalformedURLException e){
 			System.out.println("Something went wrong");
 		} catch (IOException e) {

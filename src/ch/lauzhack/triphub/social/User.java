@@ -1,15 +1,15 @@
 package ch.lauzhack.triphub.social;
 
 import ch.lauzhack.triphub.trip.Path;
-import ch.lauzhack.triphub.trip.Stop;
+import ch.lauzhack.triphub.trip.Station;
 
 public class User {
 
 	private String name;
-	private Stop departure, arrival;
+	private Station departure, arrival;
 	private Path path;
 
-	public User(String name, Stop departure, Stop arrival) {
+	public User(String name, Station departure, Station arrival) {
 		this.name = name;
 		this.departure = departure;
 		this.arrival = arrival;
@@ -23,19 +23,19 @@ public class User {
 		this.name = name;
 	}
 
-	public Stop getDeparture() {
+	public Station getDeparture() {
 		return departure;
 	}
 
-	public void setDeparture(Stop departure) {
+	public void setDeparture(Station departure) {
 		this.departure = departure;
 	}
 
-	public Stop getArrival() {
+	public Station getArrival() {
 		return arrival;
 	}
 
-	public void setArrival(Stop arrival) {
+	public void setArrival(Station arrival) {
 		this.arrival = arrival;
 	}
 
