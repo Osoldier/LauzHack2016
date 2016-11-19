@@ -1,6 +1,6 @@
 package ch.lauzhack.triphub.trip;
 
-public class Plane extends Transport {
+public class Plane implements Transport {
 	String company;
 	
 	public Plane()
