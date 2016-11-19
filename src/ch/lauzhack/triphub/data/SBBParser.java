@@ -41,8 +41,8 @@ public class SBBParser implements Parser {
 				JSONArray sections = connections.getJSONObject(i).getJSONArray("sections");
 				for (int j = 0; j < sections.length(); j++) {
 					JSONObject journey = sections.getJSONObject(j).getJSONObject("journey");
-
-					Train train = new Train(journey.getString("name"),journey.getString("operator"),journey.getInt("capacity2nd"),journey.getString("category"));
+					int capacity = journey.isNull("capacity2nd") ? -1 : journey.getInt("capacity2nd");
+					Train train = new Train(journey.getString("name"),journey.getString("operator"),capacity,journey.getString("category"));
 					JSONArray pathList = journey.getJSONArray("passList");
 					for (int k = 0; k < pathList.length(); k++) {
 						JSONObject stationJSON = pathList.getJSONObject(k).getJSONObject("station");
