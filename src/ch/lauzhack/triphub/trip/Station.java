@@ -4,12 +4,14 @@ public class Station {
 	private String name;
 	private double latitude;
 	private double longitude;
+	private String id;
 	
-	public Station (String name, double latitude, double longitude)
+	public Station (String name, double latitude, double longitude, String id)
 	{
 		this.name = name;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.id = id;
 	}
 
 	public String getName() 
@@ -52,5 +54,13 @@ public class Station {
 	@Override
 	public String toString () {
 		return "Name: "+this.name+"\nx="+this.getLatitude()+"y="+this.getLongitude();
+	}
+
+	public String getId () {
+		return id;
+	}
+
+	public void setId (String id) {
+		this.id = id;
 	}
 }
