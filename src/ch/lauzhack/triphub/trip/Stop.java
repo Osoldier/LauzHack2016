@@ -18,4 +18,12 @@ public class Stop {
 	public Calendar getDateTime () {
 		return dateTime;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Stop) {
+			return ((Stop)obj).getStation().getId().equals(this.getStation().getId());
+		}
+		return false;
+	}
 }
