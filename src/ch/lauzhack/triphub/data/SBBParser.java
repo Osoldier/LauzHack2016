@@ -35,6 +35,7 @@ public class SBBParser implements Parser {
 			URL url = new URL(baseURL+"connections?from="+startId+"&to="+endId+"&date="+dateFormat.format(date.getTime())+"&time="+timeFormat.format(date.getTime()));
 			System.out.println(url);
 			JSONObject json = getJSONFromURL(url);
+			Thread.sleep(500);
 			JSONArray connections = json.getJSONArray("connections");
 			for (int i = 0; i < connections.length(); i++) {
 				ArrayList<Stop> stops = new ArrayList<>();
@@ -70,6 +71,8 @@ public class SBBParser implements Parser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
