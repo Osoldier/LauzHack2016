@@ -1,6 +1,7 @@
 package ch.lauzhack.triphub.trip;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Path {
@@ -26,7 +27,7 @@ public class Path {
 	
 	public void mergePaths(Path p, Stop s) {
 		Path p2 = new Path();
-		for (Stop st : p.getPath()) {
+		for (Stop st : this.getPath()) {
 			if(st.equals(s)) {
 				break;
 			}
@@ -48,7 +49,9 @@ public class Path {
 	public boolean isMergableAt(Stop s1, Stop s2) {
 		if(this.getPath().contains(s1)) {
 			if(s1.equals(s2)) {
-				if(s1.getArrivalTime().before(s2.getArrivalTime())) {
+				Calendar c1 = s1.getArrivalTime() != null ? s1.getArrivalTime() : s1.getDepartureTime();
+				Calendar c2 = s2.getArrivalTime() != null ? s2.getArrivalTime() : s2.getDepartureTime();
+				if(c1.before(c2)) {
 					return true;
 				}
 			}
@@ -62,7 +65,8 @@ public class Path {
 	public String toString () {
 		String string = "";
 		for (Stop stop : path) {
-			string += " => " + stop.getStation().getName();
+			if(stop != null)
+				string += " => " + stop.getStation().getName();
 		}
 		return string;
 	}

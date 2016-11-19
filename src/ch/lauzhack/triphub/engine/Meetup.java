@@ -1,6 +1,5 @@
 package ch.lauzhack.triphub.engine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ch.lauzhack.triphub.data.SBBParser;
@@ -57,6 +56,8 @@ public class Meetup {
 			user.getPath().add(bestJoiner);
 			t.getTrip().add(user);
 		}
+		masterUser.getPath().clear();
+		masterUser.getPath().add(masterPath);
 		t.getTrip().add(masterUser);
 		
 		return t;

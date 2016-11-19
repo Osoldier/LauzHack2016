@@ -63,4 +63,12 @@ public class Station {
 	public void setId (String id) {
 		this.id = id;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Station) {
+			return ((Station)obj).id.equals(this.id);
+		}
+		return false;
+	}
 }

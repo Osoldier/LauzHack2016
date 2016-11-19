@@ -22,6 +22,10 @@ public class Stop {
 	public Calendar getArrivalTime () {
 		return arrivalTime;
 	}
+	
+	public Calendar getDepartureTime() {
+		return departureTime;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
