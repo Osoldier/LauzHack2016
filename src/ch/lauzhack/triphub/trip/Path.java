@@ -24,6 +24,27 @@ public class Path {
 		this.path = path;
 	}
 	
+	public void mergePaths(Path p, Stop s) {
+		Path p2 = new Path();
+		for (Stop st : p.getPath()) {
+			if(st.equals(s)) {
+				break;
+			}
+			p2.getPath().add(st);
+		}
+		p2.getPath().add(s);
+		boolean add = false;
+		for (int i = 0; i < p.getPath().size(); i++) {
+			if(add) {
+				p2.getPath().add(p.getPath().get(i));
+			}
+			if(p.getPath().get(i).equals(s)) {
+				add = true;
+			}
+		}
+		this.path = p2.getPath();
+	}
+	
 	public boolean isMergableAt(Stop s1, Stop s2) {
 		if(this.getPath().contains(s1)) {
 			if(s1.equals(s2)) {

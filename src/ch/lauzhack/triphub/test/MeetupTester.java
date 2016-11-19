@@ -35,13 +35,20 @@ public class MeetupTester {
 	private static Stop ys = new Stop(geneva, cs1);
 	private static Stop zs = new Stop(zurich, cs2);
 	
-	private static Path pg1 = new Path(new ArrayList<Stop>());
+	private static Object pg1 = new ArrayList<>();
+
+	static {
+		((ArrayList<Stop>)pg1).add(gs);
+		((ArrayList<Stop>)pg1).add(ys);
+		((ArrayList<Stop>)pg1).add(zs);
+		pg1 = new Path((ArrayList<Stop>)pg1);
+	}
 	
 	public static void main(String[] args) {
 		List<User> users = new ArrayList<>();
 		Path p1 = new Path();
 		
-		//users.add(new User("Thomas", geneva, zurich, ));
+		//users.add(new User("Thomas", geneva, zurich, (Path)pg1));
 		Meetup.getBestTrip(users);
 	}
 	
