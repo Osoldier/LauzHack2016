@@ -1,5 +1,6 @@
 package ch.lauzhack.triphub.social;
 
+import java.util.Calendar;
 import java.util.List;
 
 import ch.lauzhack.triphub.trip.Path;
@@ -10,12 +11,14 @@ public class User {
 	private String name;
 	private Station departure, arrival;
 	private List<Path> path;
-
-	public User(String name, Station departure, Station arrival, List<Path> path) {
+	private Calendar preferedTime;
+	
+	public User(String name, Station departure, Station arrival, List<Path> path, Calendar  preferedTime) {
 		this.name = name;
 		this.departure = departure;
 		this.arrival = arrival;
 		this.path = path;
+		this.preferedTime = preferedTime;
 	}
 	
 	public String getName() {
@@ -48,6 +51,14 @@ public class User {
 
 	public void setPath(List<Path> path) {
 		this.path = path;
+	}
+
+	public Calendar getPreferedTime() {
+		return preferedTime;
+	}
+
+	public void setPreferedTime(Calendar preferedTime) {
+		this.preferedTime = preferedTime;
 	}
 	
 	
