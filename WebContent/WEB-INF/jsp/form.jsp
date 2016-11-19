@@ -20,13 +20,19 @@
 		    	<p>
 					<fieldset>
 						<legend>Starting Points:</legend>
+			    		<c:if test="${errorStart}">
+			    			<small>Please give at least a starting point.</small><br />
+			    		</c:if>
 						<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
 				       		<label for="start${i}">Start :</label>
-				       		<input type="text" name="start${i}" id="start${i}" />
+				       		<input type="text" name="start" id="start${i}" />
 						</c:forEach>
 		       		</fieldset>
 		       		<fieldset>
 					    <legend>Other Shit:</legend>
+			    		<c:if test="${errorDest}">
+			    			<small>Please give a destination.</small><br />
+			    		</c:if>
 			    		<label for="destination">Destination :</label>
 			    		<input type="text" name="dest" id="dest" />
 			      		<br />

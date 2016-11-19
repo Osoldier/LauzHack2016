@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class Root extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -17,12 +18,13 @@ public class Root extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		HttpSession session = request.getSession();
 		boolean startSet = false;
-		if(request.getParameter("startNb") != null)
+		if(request.getParameter("startNb") != null && !request.getParameter("startNb").equals(""))
 		{
 			int starts = Integer.parseInt(request.getParameter("startNb"));
 			startSet = true;
-			request.setAttribute("startNb", starts);
+			session.setAttribute("startNb", starts);
 		}
 		request.setAttribute("startSet", startSet);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/form.jsp").forward(request, response);
