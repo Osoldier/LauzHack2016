@@ -1,6 +1,8 @@
 package ch.lauzhack.triphub.servlet;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -58,7 +60,14 @@ public class RequestReceiver extends HttpServlet {
 		for(String s : request.getParameterValues("time"))
 		{
 			System.out.println(s);
-			Calendar cal = new Calendar(s);
+			Calendar cal = Calendar.getInstance();
+			String thisDate = date += "T"+s;
+			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm");
+			try {
+				cal.setTime(dateFormat.parse(thisDate));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 		}
 
 		if(starts.size() <= 0)
