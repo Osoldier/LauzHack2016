@@ -48,6 +48,9 @@ public class Stop {
 		this.longitude = longitude;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString () {
+		return "Name: "+this.name+"\nx="+this.getLatitude()+"y="+this.getLongitude();
+	}
 }
