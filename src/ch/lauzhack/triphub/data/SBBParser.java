@@ -3,6 +3,7 @@ package ch.lauzhack.triphub.data;
 import ch.lauzhack.triphub.trip.Path;
 import ch.lauzhack.triphub.trip.Station;
 import ch.lauzhack.triphub.trip.Stop;
+import ch.lauzhack.triphub.trip.Train;
 import lib.JSONArray;
 import lib.JSONObject;
 
@@ -39,15 +40,13 @@ public class SBBParser implements Parser {
 				ArrayList<Stop> stops = new ArrayList<>();
 				JSONArray sections = connections.getJSONObject(i).getJSONArray("sections");
 				for (int j = 0; j < sections.length(); j++) {
-					System.out.println(sections.getJSONObject(j).getJSONObject("journey").keySet());
-					JSONArray pathList = sections.getJSONObject(j).getJSONObject("journey").getJSONArray("passList");
+					JSONObject journey = sections.getJSONObject(j).getJSONObject("journey");
+
+					Train train = new Train(journey.getString("name"),journey.getString("operator"),journey.getInt("capacity2nd"),journey.getString("category"));
+					JSONArray pathList = journey.getJSONArray("passList");
 					for (int k = 0; k < pathList.length(); k++) {
-						//TODO WORK HERE
-						System.out.println(pathList.getJSONObject(k).keySet());
 						JSONObject stationJSON = pathList.getJSONObject(k).getJSONObject("station");
 						Station station = new Station(stationJSON.getString("name"),stationJSON.getJSONObject("coordinate").getDouble("x"),stationJSON.getJSONObject("coordinate").getDouble("y"),stationJSON.getString("id"));
-						System.out.println(pathList.getJSONObject(k).get("departure"));
-
 						String departureAsString = pathList.getJSONObject(k).isNull("departure") ? null : pathList.getJSONObject(k).getString("departure");
 						Calendar departureDate = departureAsString == null ? null : Calendar.getInstance();
 						SimpleDateFormat jsonDateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ssZ");
@@ -56,11 +55,11 @@ public class SBBParser implements Parser {
 
 						String arrivalAsString = pathList.getJSONObject(k).isNull("arrival") ? null : pathList.getJSONObject(k).getString("arrival");
 						Calendar arrivalDate = arrivalAsString == null ? null : Calendar.getInstance();
+
 						if (arrivalAsString != null)
 							arrivalDate.setTime(jsonDateFormat.parse(arrivalAsString));
 
-						//TODO add new Train and parse train
-						stops.add(new Stop(station,arrivalDate,departureDate , null));
+						stops.add(new Stop(station,arrivalDate,departureDate , train));
 					}
 				}
 				paths.add(new Path(stops));

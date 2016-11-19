@@ -1,25 +1,26 @@
 package ch.lauzhack.triphub.trip;
 
 public class Train implements Transport {
-	public static enum Type {InterRegio, RegioExpress, TGV}
-	
+
+	private String serviceName;
 	private String company;
 	private int load;
-	private Type type;
-	
-	
+	private String category;
+
 	public Train()
 	{
+		serviceName = "";
 		company = "SBB CFF";
-		load = 10;
-		type = Type.InterRegio;
+		load = -1;
+		category = "IR";
 	}
 	
-	public Train(String company, int load, Type type)
+	public Train (String serviceName, String company, int load, String category)
 	{
+		this.serviceName = serviceName;
 		this.company = company;
 		this.load = load;
-		this.type = type;
+		this.category = category;
 	}
 
 	public String getCompany() 
@@ -42,13 +43,19 @@ public class Train implements Transport {
 		this.load = load;
 	}
 
-	public Type getType() 
-	{
-		return type;
+	public String getServiceName () {
+		return serviceName;
 	}
 
-	public void setType(Type type) 
-	{
-		this.type = type;
+	public void setServiceName (String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public String getCategory () {
+		return category;
+	}
+
+	public void setCategory (String category) {
+		this.category = category;
 	}
 }
