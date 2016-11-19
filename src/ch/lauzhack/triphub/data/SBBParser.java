@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,14 +40,22 @@ public class SBBParser implements Parser {
 				for (int j = 0; j < sections.length(); j++) {
 					JSONArray pathList = sections.getJSONObject(i).getJSONObject("journey").getJSONArray("passlist");
 					for (int k = 0; k < pathList.length(); k++) {
-
+						JSONObject stationJSON = pathList.getJSONObject(i).getJSONObject("station");
+						Station station = new Station(stationJSON.getString("name"),stationJSON.getJSONObject("coordinates").getDouble("x"),stationJSON.getJSONObject("coordinates").getDouble("y"),stationJSON.getString("id"));
+						String dateAsString = pathList.getJSONObject(i).getString("departure");
+						String[] dateAsStringArray = dateAsString.split("T");
+						Calendar departureDate = Calendar.getInstance();
+						SimpleDateFormat jsonDateFormat = new SimpleDateFormat("YYYY-MM-DD'T'hh:mm:ssZ");
+						departureDate.setTime(dateFormat.parse(dateAsStringArray[0]));
+						stops.add(new Stop(station,departureDate));
 					}
 				}
 			}
-
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
@@ -87,6 +96,23 @@ public class SBBParser implements Parser {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+
+	public Station getStation(String name){
+		try {
+			URL url = new URL(baseURL + "locations?query="+name);
+			JSONObject json = getJSONFromURL(url);
+			JSONArray stations = json.getJSONArray("stations");
+			if (stations.length() > 0){
+				System.out.println("hello");
+				return new Station(stations.getJSONObject(0).getString("name"),stations.getJSONObject(0).getJSONObject("coordinate").getDouble("x"),stations.getJSONObject(0).getJSONObject("coordinate").getDouble("y"),stations.getJSONObject(0).getString("id"));
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

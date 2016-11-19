@@ -36,4 +36,13 @@ public class Path {
 		}
 		return false;
 	}
+
+	@Override
+	public String toString () {
+		String string = "";
+		for (Stop stop : path) {
+			string += stop.getStation().getName()+" @ "+stop.getDateTime();
+		}
+		return string;
+	}
 }

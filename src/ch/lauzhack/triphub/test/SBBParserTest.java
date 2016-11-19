@@ -9,8 +9,10 @@ import java.util.Calendar;
 public class SBBParserTest {
 	public static void main (String[] args) {
 		SBBParser parser = new SBBParser();
-		ArrayList<Station> stations = parser.getClosestStopFromLocation(46.518979, 6.562485,500);
-		parser.getConnections(stations.get(0),stations.get(1), Calendar.getInstance());
+		Station genevaStation = parser.getStation("Geneva");
+		Station lausanneStation = parser.getStation("Zurich");
+		System.out.println(genevaStation);
+		System.out.println(lausanneStation);
 
 	}
 }

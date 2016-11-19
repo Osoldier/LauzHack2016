@@ -53,7 +53,7 @@ public class Station {
 
 	@Override
 	public String toString () {
-		return "Name: "+this.name+"\nx="+this.getLatitude()+"y="+this.getLongitude();
+		return "Name: "+this.name+"\n("+this.getLatitude()+","+this.getLongitude()+")";
 	}
 
 	public String getId () {
