@@ -16,7 +16,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class SBBParser implements Parser {
 	private final String baseURL = "http://transport.opendata.ch/v1/";
@@ -36,27 +35,32 @@ public class SBBParser implements Parser {
 			System.out.println(url);
 			JSONObject json = getJSONFromURL(url);
 			JSONArray connections = json.getJSONArray("connections");
-			System.out.println("============================");
-			System.out.println(connections);
-			System.out.println("============================");
 			for (int i = 0; i < connections.length(); i++) {
 				ArrayList<Stop> stops = new ArrayList<>();
 				JSONArray sections = connections.getJSONObject(i).getJSONArray("sections");
 				for (int j = 0; j < sections.length(); j++) {
+					System.out.println(sections.getJSONObject(j).getJSONObject("journey").keySet());
 					JSONArray pathList = sections.getJSONObject(j).getJSONObject("journey").getJSONArray("passList");
-					System.out.println("==========");
-					System.out.println(pathList);
-					System.out.println("==========");
 					for (int k = 0; k < pathList.length(); k++) {
 						//TODO WORK HERE
+						System.out.println(pathList.getJSONObject(k).keySet());
 						JSONObject stationJSON = pathList.getJSONObject(k).getJSONObject("station");
 						Station station = new Station(stationJSON.getString("name"),stationJSON.getJSONObject("coordinate").getDouble("x"),stationJSON.getJSONObject("coordinate").getDouble("y"),stationJSON.getString("id"));
-						String dateAsString = pathList.getJSONObject(k).getString("departure");
-						Calendar departureDate = Calendar.getInstance();
+						System.out.println(pathList.getJSONObject(k).get("departure"));
+
+						String departureAsString = pathList.getJSONObject(k).isNull("departure") ? null : pathList.getJSONObject(k).getString("departure");
+						Calendar departureDate = departureAsString == null ? null : Calendar.getInstance();
 						SimpleDateFormat jsonDateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ssZ");
-						departureDate.setTime(jsonDateFormat.parse(dateAsString));
+						if (departureAsString != null)
+							departureDate.setTime(jsonDateFormat.parse(departureAsString));
+
+						String arrivalAsString = pathList.getJSONObject(k).isNull("arrival") ? null : pathList.getJSONObject(k).getString("arrival");
+						Calendar arrivalDate = arrivalAsString == null ? null : Calendar.getInstance();
+						if (arrivalAsString != null)
+							arrivalDate.setTime(jsonDateFormat.parse(arrivalAsString));
+
 						//TODO add new Train and parse train
-						stops.add(new Stop(station,departureDate, null));
+						stops.add(new Stop(station,arrivalDate,departureDate , null));
 					}
 				}
 				paths.add(new Path(stops));

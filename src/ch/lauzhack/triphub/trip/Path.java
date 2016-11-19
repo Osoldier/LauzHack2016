@@ -48,7 +48,7 @@ public class Path {
 	public boolean isMergableAt(Stop s1, Stop s2) {
 		if(this.getPath().contains(s1)) {
 			if(s1.equals(s2)) {
-				if(s1.getDateTime().before(s2.getDateTime())) {
+				if(s1.getArrivalTime().before(s2.getArrivalTime())) {
 					return true;
 				}
 			}
@@ -62,7 +62,7 @@ public class Path {
 	public String toString () {
 		String string = "";
 		for (Stop stop : path) {
-			string += stop.getStation().getName()+" @ ";
+			string += " => " + stop.getStation().getName();
 		}
 		return string;
 	}

@@ -4,12 +4,14 @@ import java.util.Calendar;
 
 public class Stop {
 	private Station station;
-	private Calendar dateTime;
+	private Calendar arrivalTime;
+	private Calendar departureTime;
 	private Train train;
 
-	public Stop(Station station, Calendar dateTime, Train train) {
+	public Stop (Station station, Calendar arrivalTime, Calendar departureTime, Train train) {
 		this.station = station;
-		this.dateTime = dateTime;
+		this.arrivalTime = arrivalTime;
+		this.departureTime = departureTime;
 		this.train = train;
 	}
 
@@ -17,8 +19,8 @@ public class Stop {
 		return station;
 	}
 
-	public Calendar getDateTime() {
-		return dateTime;
+	public Calendar getArrivalTime () {
+		return arrivalTime;
 	}
 
 	@Override
