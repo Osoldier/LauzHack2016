@@ -26,6 +26,8 @@
 						<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
 				       		<label for="start${i}">Start :</label>
 				       		<input type="text" name="start" id="start${i}" />
+				       		<label for="time${i}">At :</label>
+  							<input type="time" name="time" id="time${i}" />
 						</c:forEach>
 		       		</fieldset>
 		       		<fieldset>
@@ -35,9 +37,11 @@
 			    		</c:if>
 			    		<label for="destination">Destination :</label>
 			    		<input type="text" name="dest" id="dest" />
+			    		<label for="date">Date of travel :</label>
+			    		<input type="date" name="date" id="date" />
 			      		<br />
 			      	</fieldset>
-			       		<input type="submit" value="Cul !" />
+			       	<input type="submit" value="Cul !" />
 		       		<!-- ID OF FIELDS TO ADD TO THE FORM : -->
 				 </p>
 			</form>
