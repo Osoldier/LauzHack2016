@@ -18,22 +18,29 @@ public class MeetupTester {
 		SBBParser issou = new SBBParser();
 		Station ge = issou.getStation("Geneva");
 		Station zu = issou.getStation("Zurich");
+		Station be = issou.getStation("Lausanne");
 		Station yv = issou.getStation("Yverdon");
 		
 		User thomas = new User("Thomas", ge, zu, issou.getConnections(ge, zu, Calendar.getInstance()), Calendar.getInstance());
 		User maxime = new User("Maxime", yv, zu, issou.getConnections(yv, zu, Calendar.getInstance()), Calendar.getInstance());
+		User vincent = new User("Vincent", be, zu, issou.getConnections(be, zu, Calendar.getInstance()), Calendar.getInstance());
 		
+		/*
 		System.out.println(thomas.getPath());
 		System.out.println();
 		System.out.println(maxime.getPath());
+		*/
 		
 		List<User> users = new ArrayList<>();
 		users.add(thomas);
 		users.add(maxime);
+		users.add(vincent);
+		
 		Trip t = Meetup.getBestTrip(users);
-		System.out.println(thomas.getPath());
-		System.out.println();
-		System.out.println(maxime.getPath());
+		for (User user : users) {
+			System.out.println(user.getPath());
+			System.out.println("-------------------------------");
+		}
 	}
 	
 }
