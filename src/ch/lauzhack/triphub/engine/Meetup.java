@@ -20,11 +20,26 @@ public class Meetup {
 		Trip t = new Trip();
 		Path masterPath = null;
 		User masterUser = null;
+		int greatestMetric = 0;
 		for (User user : users) {
-			for (Path p : user.getPath()) {
-				if (masterPath == null || p.getPath().size() > masterPath.getPath().size()) {
-					masterPath = p;
-					masterUser = user;
+			for(User user2 : users) {
+				if(user2 == user) continue;
+				for(Path p : user.getPath()) {
+					int i = 0;
+					for(Path p2 : user2.getPath()) {
+						for(Stop s : p.getPath()) {
+							for(Stop s2 : p2.getPath()) {
+								if(s.equals(s2)) {
+									i++;
+								}
+							}
+						}
+					}
+					if(i > greatestMetric) {
+						greatestMetric = i;
+						masterPath = p;
+						masterUser = user;
+					}
 				}
 			}
 		}

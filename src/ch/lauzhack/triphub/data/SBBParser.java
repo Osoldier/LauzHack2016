@@ -1,12 +1,5 @@
 package ch.lauzhack.triphub.data;
 
-import ch.lauzhack.triphub.trip.Path;
-import ch.lauzhack.triphub.trip.Station;
-import ch.lauzhack.triphub.trip.Stop;
-import ch.lauzhack.triphub.trip.Train;
-import lib.JSONArray;
-import lib.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +10,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
+
+import ch.lauzhack.triphub.trip.Path;
+import ch.lauzhack.triphub.trip.Station;
+import ch.lauzhack.triphub.trip.Stop;
+import ch.lauzhack.triphub.trip.Train;
+import lib.JSONArray;
+import lib.JSONObject;
 
 public class SBBParser implements Parser {
 	private final String baseURL = "http://transport.opendata.ch/v1/";
@@ -29,7 +28,7 @@ public class SBBParser implements Parser {
 	public ArrayList<Path> getConnections (Station startingStation, Station endStation, Calendar date) {
 		String startId = startingStation.getId();
 		String endId = endStation.getId();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		ArrayList<Path> paths = new ArrayList<>();
 		try {
@@ -51,7 +50,7 @@ public class SBBParser implements Parser {
 						Station station = new Station(stationJSON.getString("name"),stationJSON.getJSONObject("coordinate").getDouble("x"),stationJSON.getJSONObject("coordinate").getDouble("y"),stationJSON.getString("id"));
 						String departureAsString = pathList.getJSONObject(k).isNull("departure") ? null : pathList.getJSONObject(k).getString("departure");
 						Calendar departureDate = departureAsString == null ? null : Calendar.getInstance();
-						SimpleDateFormat jsonDateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ssZ");
+						SimpleDateFormat jsonDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 						if (departureAsString != null)
 							departureDate.setTime(jsonDateFormat.parse(departureAsString));
 
