@@ -7,6 +7,8 @@ import ch.lauzhack.triphub.trip.Station;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class SBBParserTest {
 	public static void main (String[] args) {

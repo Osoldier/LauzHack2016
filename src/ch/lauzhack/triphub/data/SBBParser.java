@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 
 public class SBBParser implements Parser {
 	private final String baseURL = "http://transport.opendata.ch/v1/";
@@ -121,11 +122,12 @@ public class SBBParser implements Parser {
 
 	public Station getStation(String name){
 		try {
-			URL url = new URL(baseURL + "locations?query="+name);
+			String urlString = baseURL + "locations?query="+name;
+			urlString = urlString.replace(" ","%20");
+			URL url = new URL(urlString);
 			JSONObject json = getJSONFromURL(url);
 			JSONArray stations = json.getJSONArray("stations");
 			if (stations.length() > 0){
-				System.out.println("hello");
 				return new Station(stations.getJSONObject(0).getString("name"),stations.getJSONObject(0).getJSONObject("coordinate").getDouble("x"),stations.getJSONObject(0).getJSONObject("coordinate").getDouble("y"),stations.getJSONObject(0).getString("id"));
 			}
 		} catch (MalformedURLException e) {
