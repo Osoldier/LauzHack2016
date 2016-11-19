@@ -1,6 +1,8 @@
 package ch.lauzhack.triphub.test;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -21,9 +23,17 @@ public class MeetupTester {
 		Station be = issou.getStation("Lausanne");
 		Station yv = issou.getStation("Yverdon");
 		
-		User thomas = new User("Thomas", ge, zu, issou.getConnections(ge, zu, Calendar.getInstance()), Calendar.getInstance());
-		User maxime = new User("Maxime", yv, zu, issou.getConnections(yv, zu, Calendar.getInstance()), Calendar.getInstance());
-		User vincent = new User("Vincent", be, zu, issou.getConnections(be, zu, Calendar.getInstance()), Calendar.getInstance());
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(new SimpleDateFormat("YYYY-MM-dd HH:mm").parse("2016-11-22 17:00"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		User thomas = new User("Thomas", ge, zu, issou.getConnections(ge, zu, c), c);
+		User maxime = new User("Maxime", yv, zu, issou.getConnections(yv, zu, c), c);
+		User vincent = new User("Vincent", be, zu, issou.getConnections(be, zu, c), c);
 		
 		/*
 		System.out.println(thomas.getPath());

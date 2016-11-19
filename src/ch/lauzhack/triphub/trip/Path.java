@@ -2,6 +2,7 @@ package ch.lauzhack.triphub.trip;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Path {
@@ -29,11 +30,12 @@ public class Path {
 		Path p2 = new Path();
 		for (Stop st : this.getPath()) {
 			if(st.equals(s)) {
+				p2.getPath().add(st);
 				break;
 			}
 			p2.getPath().add(st);
 		}
-		p2.getPath().add(s);
+		
 		boolean add = false;
 		for (int i = 0; i < p.getPath().size(); i++) {
 			if(add) {
@@ -66,7 +68,8 @@ public class Path {
 		String string = "";
 		string += "[\n";
 		for (Stop stop : path) {
-			string += stop.getStation().getName() + " with train: " + stop.getTrain().getServiceName()+"\n";
+			Date t = stop.getArrivalTime()==null?stop.getDepartureTime().getTime():stop.getArrivalTime().getTime();
+			string += stop.getStation().getName() + " with train: " + stop.getTrain().getServiceName()+" @ "+t.getHours()+":"+t.getMinutes()+"\n";
 		}
 		string += "]";
 		return string;
