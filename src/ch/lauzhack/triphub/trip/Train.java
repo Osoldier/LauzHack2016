@@ -1,6 +1,6 @@
 package ch.lauzhack.triphub.trip;
 
-public class Train extends Transport {
+public class Train implements Transport {
 	public static enum Type {InterRegio, RegioExpress, TGV}
 	
 	private String company;
