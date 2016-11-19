@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ch.lauzhack.triphub.data.SBBParser;
+import ch.lauzhack.triphub.engine.Meetup;
+import ch.lauzhack.triphub.social.User;
+import ch.lauzhack.triphub.trip.Station;
+import ch.lauzhack.triphub.trip.Trip;
+
 //@WebServlet(description = "Get request and launches algorithm", urlPatterns = { "/request" })
 public class RequestReceiver extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,11 +35,13 @@ public class RequestReceiver extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
-		//HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 		String destination = request.getParameter("dest");
 		String date = request.getParameter("date");
 		ArrayList<String> starts = new ArrayList<>();
+		ArrayList<String> names = new ArrayList<>();
 		ArrayList<Calendar> dates = new ArrayList<>();
+		int startNb = ((Integer) session.getAttribute("startNb")).intValue();
 		boolean proceed = true;
 		
 		if(destination.equals(""))
@@ -50,19 +58,21 @@ public class RequestReceiver extends HttpServlet {
 			proceed = false;
 		}
 		
-		for(String s : request.getParameterValues("start"))
+		String[] s = request.getParameterValues("start");
+		String[] n = request.getParameterValues("name");
+		String[] t = request.getParameterValues("time");
+		for(int i = 0 ; i < s.length ; i++)
 		{
-			if(!s.equals(""))
-				starts.add(s);
-		}
-		
-		for(String s : request.getParameterValues("time"))
-		{
-			if(s.equals("")) 
+			if(!s[i].equals(""))
+				starts.add(s[i]);
+			if(!n[i].equals(""))
+				names.add(n[i]);
+			
+			if(t[i].equals("")) 
 				continue;
 			Calendar cal = Calendar.getInstance();
-			String thisDate = date += "T" + s;
-			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm");
+			String thisDate = date += "T" + t[i];
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 			try 
 			{
 				cal.setTime(dateFormat.parse(thisDate));
@@ -73,15 +83,21 @@ public class RequestReceiver extends HttpServlet {
 			dates.add(cal);
 		}
 
-		if(starts.size() <= 0)
+		if(starts.size() < startNb)
 		{
 			request.setAttribute("errorStart", true);
 			request.setAttribute("startSet", true);
 			proceed = false;
 		}
-		if(dates.size() != starts.size())
+		if(dates.size() < startNb)
 		{
 			request.setAttribute("errorTime", true);
+			request.setAttribute("startSet", true);
+			proceed = false;
+		}
+		if(names.size() < startNb)
+		{
+			request.setAttribute("errorName", true);
 			request.setAttribute("startSet", true);
 			proceed = false;
 		}
@@ -92,8 +108,24 @@ public class RequestReceiver extends HttpServlet {
 			return;
 		}
 		
-		System.out.println("AOK");
-		System.out.println(starts.toString());
+		
+		System.out.println("ALGO !");
+		
+		SBBParser parser = new SBBParser();
+		Station end = parser.getStation(destination);
+		ArrayList<User> users = new ArrayList<>();
+		
+		for(int i = 0 ; i < names.size() ; i++)
+		{
+			Station begin = parser.getStation(starts.get(i));
+			users.add(new User(names.get(i), begin, end, parser.getConnections(begin, end, dates.get(i)), dates.get(i)));
+		}	
+		
+		Meetup.getBestTrip(users);
+		for (User user : users) {
+			System.out.println(user.getPath());
+			System.out.println("-------------------------------");
+		}
 	}
 
 }
