@@ -24,7 +24,7 @@ public class RequestReceiver extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		response.sendError(403);
+		response.sendRedirect(request.getRequestURI() + "/..");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
@@ -56,23 +56,32 @@ public class RequestReceiver extends HttpServlet {
 				starts.add(s);
 		}
 		
-		System.out.println(date);
 		for(String s : request.getParameterValues("time"))
 		{
-			System.out.println(s);
+			if(s.equals("")) 
+				continue;
 			Calendar cal = Calendar.getInstance();
-			String thisDate = date += "T"+s;
+			String thisDate = date += "T" + s;
 			SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm");
-			try {
+			try 
+			{
 				cal.setTime(dateFormat.parse(thisDate));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			} 
+			catch (ParseException e) 
+			{}
+			
+			dates.add(cal);
 		}
 
 		if(starts.size() <= 0)
 		{
 			request.setAttribute("errorStart", true);
+			request.setAttribute("startSet", true);
+			proceed = false;
+		}
+		if(dates.size() != starts.size())
+		{
+			request.setAttribute("errorTime", true);
 			request.setAttribute("startSet", true);
 			proceed = false;
 		}
