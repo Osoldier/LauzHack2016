@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@WebServlet(description = "Presenting root form", urlPatterns = { "/" })
 public class Root extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -18,6 +17,14 @@ public class Root extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		boolean startSet = false;
+		if(request.getParameter("startNb") != null)
+		{
+			int starts = Integer.parseInt(request.getParameter("startNb"));
+			startSet = true;
+			request.setAttribute("startNb", starts);
+		}
+		request.setAttribute("startSet", startSet);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/form.jsp").forward(request, response);
 	}
 
