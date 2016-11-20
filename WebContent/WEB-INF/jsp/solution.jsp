@@ -26,6 +26,8 @@
 
 			var bounds = new google.maps.LatLngBounds();
 			var paths = [];
+			var markers = [];
+			var infoWindows = [];
 			<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
 				paths[<c:out value="${i}" />] = [];
 				<c:forEach items="${users[i].path[0].path}" var="item">
@@ -46,15 +48,14 @@
 				var departure = paths[i][0];
 				var infoWindow = new google.maps.InfoWindow({
 					content: "TA MERE"
-				})
+				});
 				var marker = new google.maps.Marker({
 					position: departure,
 					title: "Departure for user "+i,//<c:out value="${users[i].name}" />,
 					map: map
 				});
-				marker.addListener('click',function(){
-					infoWindow.open(map,marker);
-				});
+				infoWindows.push(infoWindow);
+				markers.push(marker);
 				lines.push(new google.maps.Polyline({
 			        path: paths[i],
 			        strokeColor: generateRandomColor(),
@@ -63,6 +64,11 @@
 	      		}));
 
 				lines[i].setMap(map);
+			}
+			for (var i = 0; i < markers.length; i++){
+				markers[i].addListener('click',function(){
+					infoWindows[i].open(map,markers[i]);
+				});
 			}
 			map.fitBounds(bounds);
 		}
