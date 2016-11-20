@@ -10,6 +10,7 @@ public class SSParser implements Parser {
 
 	@Override
 	public ArrayList<Path> getConnections (Station startingStation, Station endStation, Calendar date) {
+		System.out.println("just for the test");
 		return null;
 	}
 }
