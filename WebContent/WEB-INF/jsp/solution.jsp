@@ -45,7 +45,7 @@
 				var departure = paths[i][0];
 				var marker = new google.maps.Marker({
 					position: departure,
-					label: "departure for user "+<c:out value="${users[i].name}" />,
+					label: "departure for user "+i,//<c:out value="${users[i].name}" />,
 					map: map
 				});
 				lines.push(new google.maps.Polyline({
