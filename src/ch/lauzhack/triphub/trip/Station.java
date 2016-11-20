@@ -1,7 +1,6 @@
 package ch.lauzhack.triphub.trip;
 
-public class Station {
-	private String name;
+public class Station extends Gateway{
 	private double latitude;
 	private double longitude;
 	private String id;
@@ -56,13 +55,6 @@ public class Station {
 		return "Name: "+this.name+"\n("+this.getLatitude()+","+this.getLongitude()+")";
 	}
 
-	public String getId () {
-		return id;
-	}
-
-	public void setId (String id) {
-		this.id = id;
-	}
 	
 	@Override
 	public boolean equals(Object obj) {

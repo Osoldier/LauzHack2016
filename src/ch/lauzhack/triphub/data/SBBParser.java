@@ -11,10 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import ch.lauzhack.triphub.trip.Path;
-import ch.lauzhack.triphub.trip.Station;
-import ch.lauzhack.triphub.trip.Stop;
-import ch.lauzhack.triphub.trip.Train;
+import ch.lauzhack.triphub.trip.*;
 import lib.JSONArray;
 import lib.JSONObject;
 
@@ -25,9 +22,10 @@ public class SBBParser implements Parser {
 	}
 
 	@Override
-	public ArrayList<Path> getConnections (Station startingStation, Station endStation, Calendar date) {
-		String startId = startingStation.getId();
-		String endId = endStation.getId();
+	public ArrayList<Path> getConnections (Gateway startingGateway, Gateway endGateway, Calendar date) {
+
+		String startId = startingGateway.getId();
+		String endId = endGateway.getId();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 		ArrayList<Path> paths = new ArrayList<>();
