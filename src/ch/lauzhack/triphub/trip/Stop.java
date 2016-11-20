@@ -46,7 +46,7 @@ public class Stop {
 	public String getTimeOfDeparture()
 	{
 		if(departureTime == null)
-			return "";
+			return "—";
 
 		if(departureTime.getTime().getMinutes()<10){
 			return departureTime.getTime().getHours()+":0"+departureTime.getTime().getMinutes();
@@ -57,15 +57,13 @@ public class Stop {
 	public String getTimeOfArrival()
 	{
 		if(arrivalTime == null)
-			return "";
+			return "—";
 
 		if(arrivalTime.getTime().getMinutes()<10){
 			return arrivalTime.getTime().getHours()+":0"+arrivalTime.getTime().getMinutes();
 		}
 		return arrivalTime.getTime().getHours()+":"+arrivalTime.getTime().getMinutes();
 	}
-
-
 
 	public Train getTrain () {
 		return train;

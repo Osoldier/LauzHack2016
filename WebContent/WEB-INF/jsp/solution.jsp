@@ -63,7 +63,7 @@
 				});
 				var marker = new google.maps.Marker({
 					position: departure,
-					title: "Departure for user "+i,//<c:out value="${users[i].name}" />,
+					title: "Departure for user "+(i + 1),//<c:out value="${users[i].name}" />,
 					map: map
 				});
 				infoWindows.push(infoWindow);
