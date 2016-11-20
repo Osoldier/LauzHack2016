@@ -21,13 +21,11 @@
 			return color;
 		}
 
+		var infoWindows = [];
 		function myMap() {
-
-
 			var bounds = new google.maps.LatLngBounds();
 			var paths = [];
 			var markers = [];
-			var infoWindows = [];
 			<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
 				paths[<c:out value="${i}" />] = [];
 				<c:forEach items="${users[i].path[0].path}" var="item">
