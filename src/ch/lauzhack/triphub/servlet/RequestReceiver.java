@@ -129,14 +129,21 @@ public class RequestReceiver extends HttpServlet {
 			users.add(new User(names.get(i), begin, end, parser.getConnections(begin, end, dates.get(i)), dates.get(i)));
 		}	
 		
-		Meetup.getBestTrip(users);
-		for (User user : users) {
-			System.out.println(user.getPath());
-			System.out.println("-------------------------------");
+		try
+		{
+			Meetup.getBestTrip(users);
+			for (User user : users) {
+				System.out.println(user.getPath());
+				System.out.println("-------------------------------");
+			}
+			session.setAttribute("users", users);
+			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/solution.jsp").forward(request, response);
 		}
-		session.setAttribute("users", users);
-		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/solution.jsp").forward(request, response);
+		catch(RuntimeException e)
+		{
+			response.sendError(400, "We couldn't process the request, as one of your user's destination is unreachable.");
+		}
 	}
 
 }
