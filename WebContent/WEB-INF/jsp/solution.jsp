@@ -64,9 +64,11 @@
 				lines[i].setMap(map);
 			}
 			for (var i = 0; i < markers.length; i++){
-				markers[i].addListener('click',function(){
-					infoWindows[i].open(map,markers[i]);
-				});
+				google.maps.event.addListener(marker, 'click', (function(marker, i) {
+					return function() {
+						infowindows[i].open(map, marker);
+					}
+				})(marker, i));
 			}
 			map.fitBounds(bounds);
 		}
