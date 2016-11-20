@@ -25,7 +25,7 @@
 
 	<header id="header">
 		<h1>
-			<a href="${pageContext.request.contextPath}">TripHub</a>
+			<a href=".">TripHub</a>
 		</h1>
 	</header>
 
