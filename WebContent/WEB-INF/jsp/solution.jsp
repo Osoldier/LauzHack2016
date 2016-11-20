@@ -12,6 +12,15 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZNPvpzLwgxnwDZQIhDPER5P_m2rCUjSw"></script>
 		<script>
 
+		function generateRandomColor(){
+			var letters = '0123456789ABCDEF';
+			var color = '#';
+			for (var i = 0; i < 6; i++ ) {
+				color += letters[Math.floor(Math.random() * 16)];
+			}
+			return color;
+		}
+
 		function myMap() {
 
 			var bounds = new google.maps.LatLngBounds();
@@ -31,15 +40,20 @@
 		    zoom: 8
 		  };
 			var map = new google.maps.Map(mapCanvas, mapOptions);
-
 			var lines = [];
 			for (var i = 0; i < paths.length; i++) {
+				var departure = paths[i][0];
+				var marker = new google.maps.Marker({
+					position: departure,
+					label: "departure for user "+<c:out value="${users[i].name}">,
+					map: map
+				});
 				lines.push(new google.maps.Polyline({
 			        path: paths[i],
-			        strokeColor: '#FF0000',
+			        strokeColor: '#000000',
 			        strokeOpacity: 0.8,
 			        strokeWeight: 2,
-			        fillColor: '#FF0000',
+			        fillColor: generateRandomColor(),
 			        fillOpacity: 0.35
 	      		}));
 
