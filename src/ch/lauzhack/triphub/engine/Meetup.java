@@ -60,6 +60,7 @@ public class Meetup {
 			Stop mergePoint = null;
 			
 			List<Path> p = sbbParser.getConnections(user.getDeparture(), masterUser.getDeparture(), user.getPreferedTime());
+			if(p.size() == 0) throw new RuntimeException("A user has no path :(");
 			Path bestJoiner = p.get(0);
 			int bjc = 0;
 			for (Path path : p) {
