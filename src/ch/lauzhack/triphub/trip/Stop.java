@@ -30,7 +30,7 @@ public class Stop {
 	public Calendar getArrivalTime () {
 		return arrivalTime;
 	}
-	
+
 	public Calendar getDepartureTime() {
 		return departureTime;
 	}
@@ -42,13 +42,22 @@ public class Stop {
 		}
 		return false;
 	}
-	
-	public String getTime()
+
+	public String getTimeOfDeparture()
 	{
 		if(departureTime == null)
-			return arrivalTime.getTime().toString();
-		return departureTime.getTime().toString();
+			return "";
+		return departureTime.getTime().getHours()+":"+departureTime.getTime().getMinutes();
 	}
+
+	public String getTimeOfArrival()
+	{
+		if(arrivalTime == null)
+			return "";
+		return arrivalTime.getTime().getHours()+":"+arrivalTime.getTime().getMinutes();
+	}
+
+
 
 	public Train getTrain () {
 		return train;
