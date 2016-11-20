@@ -1,21 +1,26 @@
-<%@ page pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+<!--
+	Transit by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
 <html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="Formulaire de recherche" />
-<meta name="keywords" content="triphub" />
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
 <title>TripHub</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
 <!--[if lte IE 8]><script src="../js/html5shiv.js"></script><![endif]-->
-<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/skel-layers.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/init.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/skel-layers.min.js"></script>
+<script src="js/init.js"></script>
+<noscript>
+    <link rel="stylesheet" href="css/skel.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style-xlarge.css" />
+</noscript>
 </head>
 <body class="landing">
 
@@ -30,24 +35,27 @@
         </section>
 
         <!-- One -->
-        <section id="one" class="wrapper style1 special">
+        <section id="three" class="wrapper style3 special">
             <div class="container">
                 <header class="major">
                     <h2>First of all, please fill up the infos</h2>
                 </header>
-                <div class="row 150%">
+                <div class="row">
                     <c:if test="${not startSet}">
+                    <div class="container 50%">
                 		<form method="get" action=".">
                 			<label for="Number of starts">Number of starts :</label>
                 			<input type="text" name="startNb" id="startNb" />
                 			<br />
-                    		<input type="submit" value="Proceed" />
+                    		<input type="submit" class="special big"  value="Proceed" />
                     	</form>
+                    </div>
                     </c:if>
                     <c:if test="${startSet}">
+                    <div class="container 50%">
                         <form method="post" action="request">
                             <fieldset>
-                                <legend>General Shit:</legend>
+                                <h2>General Stuff:</h2>
                                 <c:if test="${errorDest}">
                                     <small style="color: red;">Please give a destination</small>
                                     <br />
@@ -63,7 +71,7 @@
                                 <br />
                             </fieldset>
                             <fieldset>
-                                <legend>User info:</legend>
+                                <h2>User info:</h2>
                                 <c:if test="${errorStart}">
                                     <small style="color: red;">Please fill all location fields</small>
                                     <br />
@@ -89,10 +97,11 @@
                                     <br />
                                 </c:forEach>
                             </fieldset>
-                            <input type="submit" value="Submit" />
+                            <input type="submit"  class="special big" value="Submit" />
                             <!-- ID OF FIELDS TO ADD TO THE FORM : -->
                             </p>
                         </form>
+                    </div>
                     </c:if>
                 </div>
             </div>
