@@ -80,10 +80,11 @@
 		<h3>
 			Travel for <strong><c:out value="${users[i].name}" /></strong>
 		</h3>
-		<table style="width: 100%">
+		<table style="width: 90%">
 			<tr>
 				<th>Town</th>
 				<th>Train number</th>
+				<th>Arrival Time</th>
 				<th>Departure Time</th>
 				<th>Load</th>
 			</tr>
@@ -91,7 +92,8 @@
 				<tr>
 					<td><c:out value="${item.station.name}" /></td>
 					<td><c:out value="${item.train.serviceName}" /></td>
-					<td><c:out value="${item.time}" /></td>
+					<td><c:out value="${item.timeOfArrival}" /></td>
+					<td><c:out value="${item.timeOfDeparture}" /></td>
 					<td><c:out value="${item.train.load}" /></td>
 				</tr>
 			</c:forEach>

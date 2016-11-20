@@ -1,23 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>TripHub</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="" />
-<meta name="keywords" content="" />
+<meta name="description" content="Formulaire de recherche" />
+<meta name="keywords" content="triphub" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/skel.css" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style-xlarge.css" />
+<title>TripHub</title>
 <!--[if lte IE 8]><script src="../js/html5shiv.js"></script><![endif]-->
-<script src="../js/jquery.min.js"></script>
-<script src="../js/skel.min.js"></script>
-<script src="../js/skel-layers.min.js"></script>
-<script src="../js/init.js"></script>
-<noscript>
-    <link rel="stylesheet" href="../css/skel.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/style-xlarge.css" />
-</noscript>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/skel.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/skel-layers.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/init.js"></script>
 </head>
 <body class="landing">
 

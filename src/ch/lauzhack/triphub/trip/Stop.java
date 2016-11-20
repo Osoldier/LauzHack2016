@@ -7,7 +7,7 @@ public class Stop {
 	private Calendar arrivalTime;
 	private Calendar departureTime;
 	private Train train;
-	
+
 	public Stop()
 	{}
 
@@ -21,7 +21,7 @@ public class Stop {
 	public Station getStation() {
 		return station;
 	}
-	
+
 	public void setStation(Station station)
 	{
 		this.station = station;
@@ -47,6 +47,10 @@ public class Stop {
 	{
 		if(departureTime == null)
 			return "";
+
+		if(departureTime.getTime().getMinutes()<10){
+			return departureTime.getTime().getHours()+":0"+departureTime.getTime().getMinutes();
+		}
 		return departureTime.getTime().getHours()+":"+departureTime.getTime().getMinutes();
 	}
 
@@ -54,6 +58,10 @@ public class Stop {
 	{
 		if(arrivalTime == null)
 			return "";
+
+		if(arrivalTime.getTime().getMinutes()<10){
+			return arrivalTime.getTime().getHours()+":0"+arrivalTime.getTime().getMinutes();
+		}
 		return arrivalTime.getTime().getHours()+":"+arrivalTime.getTime().getMinutes();
 	}
 
