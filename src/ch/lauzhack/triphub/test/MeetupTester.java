@@ -46,12 +46,14 @@ public class MeetupTester {
 		
 		List<User> users = new ArrayList<>();
 		users.add(thomas);
+		/*
 		users.add(thomas2);
 		users.add(maxime);
 		users.add(vincent);
 		users.add(claire);
 		users.add(trabichet);
 		users.add(valentin);
+		*/
 		
 		Trip t = Meetup.getBestTrip(users);
 		for (User user : users) {

@@ -15,6 +15,15 @@ public class Meetup {
 	
 	public static Trip getBestTrip(List<User> users) {
 
+		if(users.size() == 1) {
+			Trip t = new Trip();
+			Path p = users.get(0).getPath().get(0); 
+			users.get(0).getPath().clear();
+			users.get(0).getPath().add(p);
+			t.getTrip().add(users.get(0));
+			return t;
+		}
+		
 		sbbParser = new SBBParser();
 
 		Trip t = new Trip();
@@ -43,7 +52,7 @@ public class Meetup {
 				}
 			}
 		}
-
+		
 		for (User user : users) {
 			if (user == masterUser)
 				continue;
