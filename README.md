@@ -1,6 +1,7 @@
 # LauzHack2016
 Project for the LauzHack Hackaton 2016, you can check it out here: [https://lauzhack.scapp.io/](https://lauzhack.scapp.io/)
 
+Winner of the Swisscom Challenge
 
 ## What it does
 

@@ -41,19 +41,15 @@ public class MeetupTester {
 		User maxime = new User("Maxime", yv, zu, issou.getConnections(yv, zu, c), c);
 		User vincent = new User("Vincent", la, zu, issou.getConnections(la, zu, c), c);
 		User claire = new User("Claire", ba, zu, issou.getConnections(ba, zu, c), c);
-		User trabichet = new User("PUPUTE", be, zu, issou.getConnections(be, zu, c), c);
 		User valentin = new User("Valentin", si, zu, issou.getConnections(si, zu, c), c);
 		
 		List<User> users = new ArrayList<>();
 		users.add(thomas);
-		/*
 		users.add(thomas2);
 		users.add(maxime);
 		users.add(vincent);
 		users.add(claire);
-		users.add(trabichet);
 		users.add(valentin);
-		*/
 		
 		Trip t = Meetup.getBestTrip(users);
 		for (User user : users) {
