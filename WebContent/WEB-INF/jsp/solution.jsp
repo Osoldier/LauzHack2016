@@ -8,16 +8,13 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="../js/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="css/skel.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style-xlarge.css" />
 		<script src="js/jquery.min.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-layers.min.js"></script>
 		<script src="js/init.js"></script>
-		<noscript>
-			<link rel="stylesheet" href="css/skel.css" />
-			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/style-xlarge.css" />
-		</noscript>
 	</head>
 <body>
 	<div id="map" style="width: 100%; height: 500px"></div>
@@ -35,13 +32,14 @@
 			return color;
 		}
 
-		var infoWindows = [];
+		var names = [];
 		function myMap() {
 			var bounds = new google.maps.LatLngBounds();
 			var paths = [];
 			var markers = [];
 			<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
 				paths[<c:out value="${i}" />] = [];
+				names.push("<c:out value="${users[i].name}"/>");
 				<c:forEach items="${users[i].path[0].path}" var="item">
 					var point = new google.maps.LatLng(<c:out value="${item.station.latitude}"/>, <c:out value="${item.station.longitude}"/>);
 					paths[<c:out value="${i}"/>].push(point);
@@ -58,15 +56,11 @@
 			var lines = [];
 			for (var i = 0; i < paths.length; i++) {
 				var departure = paths[i][0];
-				var infoWindow = new google.maps.InfoWindow({
-					content: "TA MERE"
-				});
 				var marker = new google.maps.Marker({
 					position: departure,
-					title: "Departure for user "+(i + 1),//<c:out value="${users[i].name}" />,
+					title: "Departure for " + names[i],
 					map: map
 				});
-				infoWindows.push(infoWindow);
 				markers.push(marker);
 				lines.push(new google.maps.Polyline({
 			        path: paths[i],
@@ -77,40 +71,48 @@
 
 				lines[i].setMap(map);
 			}
-			for (var i = 0; i < markers.length; i++){
-				google.maps.event.addListener(marker, 'click', (function(marker, i) {
-					return function() {
-						infowindows[i].open(map, marker);
-					}
-				})(marker, i));
-			}
 			map.fitBounds(bounds);
 		}
 
         google.maps.event.addDomListener(window, 'load', myMap);
 	</script>
 	<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
-		<h3>
-			Travel for <strong><c:out value="${users[i].name}" /></strong>
-		</h3>
-		<table style="width: 90%">
-			<tr>
-				<th>Town</th>
-				<th>Train number</th>
-				<th>Arrival Time</th>
-				<th>Departure Time</th>
-				<th>Load</th>
-			</tr>
-			<c:forEach items="${users[i].path[0].path}" var="item">
+		<div class="container 75%">
+			<h3 style="margin-left: -50px;margin-top: 10px;">
+				Travel for <strong><c:out value="${users[i].name}" /></strong>
+			</h3>	
+			<table style="width: 100%;">
 				<tr>
-					<td><c:out value="${item.station.name}" /></td>
-					<td><c:out value="${item.train.serviceName}" /></td>
-					<td><c:out value="${item.timeOfArrival}" /></td>
-					<td><c:out value="${item.timeOfDeparture}" /></td>
-					<td><c:out value="${item.train.load}" /></td>
+					<th>Town</th>
+					<th>Train number</th>
+					<th>Arrival Time</th>
+					<th>Departure Time</th>
+					<th>Load</th>
 				</tr>
-			</c:forEach>
-		</table>
-	</c:forEach>
+				<c:forEach items="${users[i].path[0].path}" var="item">
+					<tr>
+						<td><c:out value="${item.station.name}" /></td>
+						<td><c:out value="${item.train.serviceName}" /></td>
+						<td><c:out value="${item.timeOfArrival}" /></td>
+						<td><c:out value="${item.timeOfDeparture}" /></td>
+						<td><c:out value="${item.train.load}" /></td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:forEach>	
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="8u 12u$(medium)">
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li>
+						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+						<li>Images: <a href="http://unsplash.com">Unsplash</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

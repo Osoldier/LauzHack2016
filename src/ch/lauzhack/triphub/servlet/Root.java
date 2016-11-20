@@ -21,9 +21,18 @@ public class Root extends HttpServlet {
 		boolean startSet = false;
 		if(request.getParameter("startNb") != null && !request.getParameter("startNb").equals(""))
 		{
-			int starts = Integer.parseInt(request.getParameter("startNb"));
-			startSet = true;
-			session.setAttribute("startNb", starts);
+			try
+			{
+				int starts = Integer.parseInt(request.getParameter("startNb"));
+				startSet = true;
+				session.setAttribute("startNb", starts);
+				
+			}
+			catch(Exception e)
+			{
+				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/form.jsp").forward(request, response);
+				return;
+			}
 		}
 		request.setAttribute("startSet", startSet);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/form.jsp").forward(request, response);
