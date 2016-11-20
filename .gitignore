@@ -6,3 +6,5 @@ bin/
 *.iml
 out/
 *.DS_STORE
+WebContent/WEB-INF/classes/
+Tomcat/webapps/docs/
