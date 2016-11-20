@@ -23,6 +23,7 @@
 
 		function myMap() {
 
+
 			var bounds = new google.maps.LatLngBounds();
 			var paths = [];
 			<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
@@ -43,18 +44,22 @@
 			var lines = [];
 			for (var i = 0; i < paths.length; i++) {
 				var departure = paths[i][0];
+				var infoWindow = new google.maps.InfoWindow({
+					content: "TA MERE"
+				})
 				var marker = new google.maps.Marker({
 					position: departure,
-					label: "departure for user "+i,//<c:out value="${users[i].name}" />,
+					title: "Departure for user "+i,//<c:out value="${users[i].name}" />,
 					map: map
+				});
+				marker.addListener('click',function(){
+					infoWindow.open(map,marker);
 				});
 				lines.push(new google.maps.Polyline({
 			        path: paths[i],
-			        strokeColor: '#000000',
-			        strokeOpacity: 0.8,
-			        strokeWeight: 2,
-			        fillColor: generateRandomColor(),
-			        fillOpacity: 0.35
+			        strokeColor: generateRandomColor(),
+			        strokeOpacity: 0.5,
+			        strokeWeight: 4
 	      		}));
 
 				lines[i].setMap(map);
