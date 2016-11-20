@@ -70,8 +70,15 @@ public class RequestReceiver extends HttpServlet {
 			
 			if(t[i].equals("")) 
 				continue;
+			
+			System.out.println("start : " + s[i]);
+			System.out.println("time : " + t[i]);
+			System.out.println("name : " + n[i]);
+
 			Calendar cal = Calendar.getInstance();
-			String thisDate = date += "T" + t[i];
+			System.out.println("date" + date);
+			String thisDate = date + "T" + t[i];
+			System.out.println("this date : " + thisDate);
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 			try 
 			{
@@ -79,7 +86,7 @@ public class RequestReceiver extends HttpServlet {
 			} 
 			catch (ParseException e) 
 			{}
-			
+			System.out.println("Date before adding:" + cal.getTime().toString());
 			dates.add(cal);
 		}
 
@@ -118,6 +125,7 @@ public class RequestReceiver extends HttpServlet {
 		for(int i = 0 ; i < names.size() ; i++)
 		{
 			Station begin = parser.getStation(starts.get(i));
+			System.out.println("date " + dates.get(i).getTime().toString());
 			users.add(new User(names.get(i), begin, end, parser.getConnections(begin, end, dates.get(i)), dates.get(i)));
 		}	
 		
@@ -126,6 +134,9 @@ public class RequestReceiver extends HttpServlet {
 			System.out.println(user.getPath());
 			System.out.println("-------------------------------");
 		}
+		session.setAttribute("users", users);
+		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/solution.jsp").forward(request, response);
 	}
 
 }
