@@ -13,6 +13,9 @@ public class User {
 	private List<Path> path;
 	private Calendar preferedTime;
 	
+	public User()
+	{}
+	
 	public User(String name, Station departure, Station arrival, List<Path> path, Calendar  preferedTime) {
 		this.name = name;
 		this.departure = departure;
