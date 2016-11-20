@@ -9,20 +9,21 @@
 	<body>
 		<div id="map" style="width:100%;height:500px"></div>
 
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZNPvpzLwgxnwDZQIhDPER5P_m2rCUjSw"></script>
 		<script>
 
 		function myMap() {
 
 			var bounds = new google.maps.LatLngBounds();
-			var paths = array();
-			//EN java
-			//for(i -> chaque user)
-			//	paths[i] = array()
-			//	for(j -> chaque point du path de l'user i)
-			//		paths[i][j].push(new google.maps.LatLng(point.latitude, point.longitude));
-			//		bounds.extend(array[i][j])
-			//  endfor
-			//endfor
+			var paths = [];
+			<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
+				paths[<c:out value="${i}" />] = [];
+				<c:forEach items="${users[i].path[0].path}" var="item">
+					var point = new google.maps.LatLng(<c:out value="${item.station.latitude}"/>, <c:out value="${item.station.longitude}"/>);
+					paths[<c:out value="${i}"/>].push(point);
+					bounds.extend(point);
+				</c:forEach>
+			</c:forEach>
 
 		  var mapCanvas = document.getElementById("map");
 		  var mapOptions = {
@@ -31,7 +32,7 @@
 		  };
 			var map = new google.maps.Map(mapCanvas, mapOptions);
 
-			var lines = array();
+			var lines = [];
 			for (var i = 0; i < paths.length; i++) {
 				lines.push(new google.maps.Polyline({
 			        path: paths[i],
@@ -46,7 +47,8 @@
 			}
 			map.fitBounds(bounds);
 		}
+
+        google.maps.event.addDomListener(window, 'load', myMap);
 		</script>
-		<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
 	</body>
 </html>

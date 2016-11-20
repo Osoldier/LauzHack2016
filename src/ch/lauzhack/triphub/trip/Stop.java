@@ -7,6 +7,9 @@ public class Stop {
 	private Calendar arrivalTime;
 	private Calendar departureTime;
 	private Train train;
+	
+	public Stop()
+	{}
 
 	public Stop (Station station, Calendar arrivalTime, Calendar departureTime, Train train) {
 		this.station = station;
@@ -17,6 +20,11 @@ public class Stop {
 
 	public Station getStation() {
 		return station;
+	}
+	
+	public void setStation(Station station)
+	{
+		this.station = station;
 	}
 
 	public Calendar getArrivalTime () {

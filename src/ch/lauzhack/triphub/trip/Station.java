@@ -6,6 +6,9 @@ public class Station {
 	private double longitude;
 	private String id;
 	
+	public Station()
+	{}
+	
 	public Station (String name, double latitude, double longitude, String id)
 	{
 		this.name = name;
