@@ -42,6 +42,13 @@ public class Stop {
 		}
 		return false;
 	}
+	
+	public String getTime()
+	{
+		if(departureTime == null)
+			return arrivalTime.getTime().toString();
+		return departureTime.getTime().toString();
+	}
 
 	public Train getTrain () {
 		return train;

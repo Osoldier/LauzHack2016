@@ -6,11 +6,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Solution</title>
 	</head>
-	<body>
-		<div id="map" style="width:100%;height:500px"></div>
+<body>
+	<div id="map" style="width: 100%; height: 500px"></div>
 
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZNPvpzLwgxnwDZQIhDPER5P_m2rCUjSw"></script>
-		<script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZNPvpzLwgxnwDZQIhDPER5P_m2rCUjSw"></script>
+	<script>
 
 		function generateRandomColor(){
 			var letters = '0123456789ABCDEF';
@@ -74,6 +75,27 @@
 		}
 
         google.maps.event.addDomListener(window, 'load', myMap);
-		</script>
-	</body>
+	</script>
+	<c:forEach var="i" begin="0" end="${startNb - 1}" step="1">
+		<h3>
+			Travel for <strong><c:out value="${users[i].name}" /></strong>
+		</h3>
+		<table style="width: 100%">
+			<tr>
+				<th>Town</th>
+				<th>Train number</th>
+				<th>Departure Time</th>
+				<th>Load</th>
+			</tr>
+			<c:forEach items="${users[i].path[0].path}" var="item">
+				<tr>
+					<td><c:out value="${item.station.name}" /></td>
+					<td><c:out value="${item.train.serviceName}" /></td>
+					<td><c:out value="${item.time}" /></td>
+					<td><c:out value="${item.train.load}" /></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:forEach>
+</body>
 </html>

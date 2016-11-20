@@ -33,9 +33,11 @@ public class Train implements Transport {
 		this.company = company;
 	}
 
-	public int getLoad() 
+	public String getLoad() 
 	{
-		return load;
+		if(load == -1)
+			return new String("Unknown");
+		return new Integer(load).toString();
 	}
 
 	public void setLoad(int load) 
